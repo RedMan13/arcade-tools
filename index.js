@@ -7,7 +7,7 @@
   const events = require('events');
   const { exec } = require("child_process")
   let Discord = require("discord.js")
-  let Database  = require("easy-json-database")
+  let Database  = require("cyclic-dynamodb")
 let { MessageEmbed, MessageButton, MessageActionRow, Intents, Permissions, MessageSelectMenu }= require("discord.js")
 let logs = require("discord-logs")
 let moment  = require("moment")
@@ -24,8 +24,7 @@ let fs = require('fs');
                     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
                     const s4d = {
                         Discord,
-                        database: new Database(`./database.json`),
-fire:null,
+                        database: Database("good-jade-ray-capeCyclicDB"),
                         joiningMember:null,
                         reply:null,
                         tokenInvalid:false,
@@ -79,13 +78,6 @@ await s4d.client.login(process.env.token).catch((e) => {
         }
     });
 
-const http = require('http');
-const server = http.createServer((req, res) => {
-    res.writeHead(200);
-    res.end('well shit here we go again');
-});
-server.listen(3000);
-
 synchronizeSlashCommands(s4d.client, [
   {
       name: 'ban',
@@ -112,9 +104,9 @@ synchronizeSlashCommands(s4d.client, [
 
 });
 
-const leveling = new Database('./databases/level db.json')
-const gen = new Database('./databases/database.json')
-const mdb = new Database('./databases/mongoDB.json');
+const leveling = db.collection('level db')
+const gen = db.collection('other')
+const mdb = db.collection('mongoDB');
 
 s4d.client.on('ready', async () => {
   delimiter = '\n';
@@ -141,10 +133,6 @@ s4d.client.on('ready', async () => {
       });
       date = new Date().getDate()
     }
-
-              if (false) {
-                  console.log('ran')
-              }
           }
 
 });
