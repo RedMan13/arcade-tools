@@ -86,9 +86,6 @@ const server = http.createServer((req, res) => {
 });
 server.listen(3000);
 
-const mdb = new Database('./mongoDB.json');
-
-
 synchronizeSlashCommands(s4d.client, [
   {
       name: 'ban',
@@ -115,8 +112,10 @@ synchronizeSlashCommands(s4d.client, [
 
 });
 
-const leveling = new Database('./level db.json')
-const gen = new Database('./database.json')
+const leveling = new Database('./databases/level db.json')
+const gen = new Database('./databases/database.json')
+const mdb = new Database('./databases/mongoDB.json');
+
 s4d.client.on('ready', async () => {
   delimiter = '\n';
   prefix = 'a!';
