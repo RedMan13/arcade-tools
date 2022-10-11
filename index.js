@@ -1,5 +1,4 @@
 (async()=>{
-  const { token } = require('./config.json')
   let process = require('process');
   process.on('uncaughtException', function (err) {
     console.log(`Error!`);
@@ -70,7 +69,7 @@ function listsGetRandomItem(list, remove) {
 }
 
 
-await s4d.client.login(token).catch((e) => {
+await s4d.client.login(process.env.token).catch((e) => {
         s4d.tokenInvalid = true;
         s4d.tokenError = e;
         if (e.toString().toLowerCase().includes("token")) {
