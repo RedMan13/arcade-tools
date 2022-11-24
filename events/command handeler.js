@@ -25,7 +25,8 @@ module.exports = {
 					}
 					for (const command of commands) {
 						let category = imports.locateCategory(dbs.commands[command].category, embed.fields)
-						let name = embed.fields[category].value 
+						console.log(category, embed.fields[category], embed.fields)
+						let name = embed.fields[category].value
 						embed.fields[category].value = name + '\n`' + command + '` ' + dbs.commands[command].description
 					}
 				} else if (commands.includes(args)) {
