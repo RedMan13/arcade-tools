@@ -1,3 +1,5 @@
+console.log('starting...')
+
 const { Client, GatewayIntentBits } = require('discord.js');
 require('dotenv').config();
 let process = require('process');
