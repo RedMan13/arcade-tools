@@ -1,9 +1,3 @@
-# ignore env
+.env
 package-lock.json
 node_modules
-.env
-.cmd
-
-# ignore usless
-#databases
-blocks.xml
