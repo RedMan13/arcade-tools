@@ -1,8 +1,8 @@
 module.exports = {
-	name: 'get-count',
-	category: 'settings',
-	sDesc: 'sets the count',
-	lDesc: 'sets the current count in <#954587338988716093>',
+	name: 'ban',
+	category: 'moderators',
+	sDesc: 'bans a person',
+	lDesc: 'bans a person from the server, put the reason inbetween {}',
 	args: [
         {
             type: 'member',
