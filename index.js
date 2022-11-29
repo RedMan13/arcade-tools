@@ -1,5 +1,6 @@
 console.log('starting...')
 
+require('./uptimer')
 const { Client, GatewayIntentBits } = require('discord.js');
 require('dotenv').config();
 let process = require('process');
