@@ -1,8 +1,8 @@
 module.exports = {
 	name: 'ready',
 	once: true,
-	execute(client) {
+	execute(client, dbs, imports) {
 		console.log(`Ready! Logged in as ${client.user.tag}`);
-		client.channels.cache.get('983516228691824641').send(`Ready! Logged in as ${client.user.tag}`)
+		client.channels.cache.get(dbs.config.channels.console).send(`Ready! Logged in as ${client.user.tag}`)
 	},
 };

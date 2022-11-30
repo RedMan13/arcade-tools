@@ -3,9 +3,11 @@ module.exports = {
 	once: false,
 	execute: async (message, dbs, imports) => {
         if (message.channel.id == dbs.config.channels.counting) {
-            const count = await dbs.database.get('count') ? await dbs.database.get('count') : {
-                "current": 0
-            }
+            const count = dbs.database.channel(message.channel.id).data.current 
+                ? dbs.database.channel(message.channel.id).data 
+                : {
+                    "current": 0
+                }
             if (message.author.id == count.user) {
                 message.delete();
                 message.guild.channels.fetch(dbs.config.channels.logs).then(channel => {
@@ -24,10 +26,10 @@ module.exports = {
                 })
                 return
             }
-            dbs.database.set('count', {
+            dbs.database.channel(message.channel.id).data = {
                 "current": Number(message.content),
                 "user": message.author.id
-            });
+            }
         }
 	},
 };

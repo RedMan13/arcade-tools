@@ -1,0 +1,16 @@
+{
+    "channels": {
+        "counting": "954587338988716093",
+        "logs": "922022309806637056",
+        "console": "983516228691824641"
+    },
+    "commands": {
+        "prefix": "a!",
+        "categorys": [
+            "your mom jokes", 
+            "info",
+            "moderators",
+            "settings"
+        ]
+    }
+}

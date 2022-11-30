@@ -8,16 +8,16 @@ module.exports = {
             type: 'number',
             name: 'count',
             max: Infinity,
-			      min: 1,
+		    min: 1,
             required: true
         }
     ],
 	  execute: async (message, dbs) => {
         try {
-            await dbs.database.get('count', {
+            dbs.database.channel(dbs.config.channels.counting).data = {
                 current: message.arguments.count,
                 user: '865486218351345674'
-            })
+            }
             message.channel.send(`successfully set the count to ${message.arguments.count}!`)
         } catch (err) {
             message.channel.send(`failed to set the count to ${message.arguments.count}.\nerror:\n${err}`)

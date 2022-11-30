@@ -5,6 +5,6 @@ module.exports = {
   	lDesc: 'gets the current count in <#954587338988716093>',
   	args: [],
   	execute: async (message, dbs) => {
-  		  message.channel.send(`the current count in <#954587338988716093> is ${await dbs.database.get('count').current}`)
+  		  message.channel.send(`the current count in <#954587338988716093> is ${dbs.database.channel(dbs.config.channels.counting).data.current}`)
   	},
 };

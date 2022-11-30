@@ -1,0 +1,10 @@
+# no you dont get to see the token lmfao
+.env
+
+# npm be like
+package-lock.json
+node_modules
+
+# anti replit spam 🤬
+.replit
+replit.nix

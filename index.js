@@ -1,16 +1,17 @@
 console.log('starting...')
 
-require('./uptimer')
+require('./statics/uptimer')
 const { Client, GatewayIntentBits } = require('discord.js');
 require('dotenv').config();
 let process = require('process');
-const config = JSON.parse(process.env.config)
+const config = require('./statics/config.json')
 
 const imports = {
+	process: process,
 	Discord: require('discord.js'),
-	Database: require("mongquick"),
 	path: require('path'),
 	fs: require('fs'),
+	db: require('./statics/databaseClass.js'),
 	locateCategory(name, fields) {
 		for (let field = 0; field < fields.length; field++) {
 			if (fields[field].name == name) {
@@ -78,7 +79,7 @@ const imports = {
 
 let dbs = { // databases
 	config: config,
-	database: new imports.Database.DB(config.mongo),
+	database: imports.db,
 	commands: {},
 	commandConfig: config.commands
 }
@@ -87,6 +88,7 @@ imports.fs.readdir('./commands', async (err, files) => { // read commands folder
 	console.log(err ? err : 'reading commands with no error')
 	files.forEach(async file => {
 		let command = require('./commands/' + file)
+		console.log(`loading command ${command.name}`)
 		dbs.commands[command.name] = {
 			description: command.sDesc,
 			category: command.category,
@@ -99,6 +101,7 @@ const eventsPath = imports.path.join(__dirname, 'events');
 const eventFiles = imports.fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) { // add events via files
+	console.log(`applying event ${file}`)
 	const filePath = imports.path.join(eventsPath, file);
 	const event = require(filePath);
 	if (event.once) {
@@ -109,4 +112,4 @@ for (const file of eventFiles) { // add events via files
 }
 
 /* login */
-imports.client.login(config.token);
+imports.client.login(process.env.token);
