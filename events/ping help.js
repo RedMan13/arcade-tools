@@ -1,7 +1,7 @@
 module.exports = {
-	name: 'messageCreate',
-	once: false,
-	execute: async (message, dbs, imports) => {
+    name: 'messageCreate',
+    once: false,
+    execute: async (message, dbs, imports) => {
         if (message.mentions.users.size < 1) return
         if (message.mentions.users.at(0).id == imports.client.user.id) {
             message.channel.send({
@@ -13,5 +13,5 @@ module.exports = {
             });
       
         }
-	},
+    },
 };

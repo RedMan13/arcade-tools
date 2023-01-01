@@ -1,52 +1,52 @@
 module.exports = {
-	name: 'messageCreate',
-	once: false,
-	execute: async (message, dbs, imports) => {
-		if (message.content.startsWith(dbs.commandConfig.prefix)) {
-			let command = message.content.split(' ')
-			command[0] = command[0].slice(dbs.commandConfig.prefix.length, command[0].length)
-			let args = command.splice(1, command.length).join(' ')
-			command = command[0]
-			if (command == 'help') {
-				let commands = Object.getOwnPropertyNames(dbs.commands)
-				let embed = {
-					color: 0x33cc00,
-					title: 'command list',
-					timestamp: new Date().toISOString(),
-				}
-				if (!args) {
-					embed.fields = []
-					for (const cat of dbs.commandConfig.categorys) {
-						embed.fields.push({
-							name: cat,
-							value: '',
-							inline: false
-						})
-					}
-					for (const command of commands) {
-						let category = imports.locateCategory(dbs.commands[command].category, embed.fields)
-						let name = embed.fields[category].value
-						embed.fields[category].value = name + '\n`' + command + '` ' + dbs.commands[command].description
-					}
-				} else if (commands.includes(args)) {
-					const commandData = require('.' + dbs.commands[args].path)
-					embed.title = commandData.name
-					embed.description = commandData.lDesc
-				} else {
-					embed.title = 'non-existant command'
-					embed.description = 'the command you provided doesnt exist'
-				}
-				message.channel.send({ embeds: [embed] })
-				return
-			}
-			const commandData = require('.' + dbs.commands[command].path)
-			message.args = args
-			message.arguments = await imports.getAllArgs(message, commandData.args)
-			if (typeof message.arguments == 'string') {
-				message.channel.send(message.arguments)
-				return
-			}
-			commandData.execute(message, dbs, imports)
-		}
-	},
+    name: 'messageCreate',
+    once: false,
+    execute: async (message, dbs, imports) => {
+        if (message.content.startsWith(dbs.commandConfig.prefix)) {
+            let command = message.content.split(' ')
+            command[0] = command[0].slice(dbs.commandConfig.prefix.length, command[0].length)
+            let args = command.splice(1, command.length).join(' ')
+            command = command[0]
+            if (command == 'help') {
+                let commands = Object.getOwnPropertyNames(dbs.commands)
+                let embed = {
+                    color: 0x33cc00,
+                    title: 'command list',
+                    timestamp: new Date().toISOString(),
+                }
+                if (!args) {
+                    embed.fields = []
+                    for (const cat of dbs.commandConfig.categorys) {
+                        embed.fields.push({
+                            name: cat,
+                            value: '',
+                            inline: false
+                        })
+                    }
+                    for (const command of commands) {
+                        let category = imports.locateCategory(dbs.commands[command].category, embed.fields)
+                        let name = embed.fields[category].value
+                        embed.fields[category].value = name + '\n`' + command + '` ' + dbs.commands[command].description
+                    }
+                } else if (commands.includes(args)) {
+                    const commandData = require('.' + dbs.commands[args].path)
+                    embed.title = commandData.name
+                    embed.description = commandData.lDesc
+                } else {
+                    embed.title = 'non-existant command'
+                    embed.description = 'the command you provided doesnt exist'
+                }
+                message.channel.send({ embeds: [embed] })
+                return
+            }
+            const commandData = require('.' + dbs.commands[command].path)
+            message.args = args
+            message.arguments = await imports.getAllArgs(message, commandData.args)
+            if (typeof message.arguments == 'string') {
+                message.channel.send(message.arguments)
+                return
+            }
+            commandData.execute(message, dbs, imports)
+        }
+    },
 };

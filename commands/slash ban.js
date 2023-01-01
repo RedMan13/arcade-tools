@@ -1,7 +1,24 @@
 module.exports = {
-	name: 'interactionCreate',
-	once: false,
-	execute: async (interaction, dbs, imports) => {
+    slashCmd: true,
+    comData: {
+        name: 'ban',
+        description: 'ban a user',
+        options: [
+            {
+                type: 6,
+                name: 'user',
+                required: true,
+                description: 'the user to ban'
+            }, 
+            {
+                type: 3,
+                name: 'reason',
+                required: false,
+                description: 'why they are banned'
+            }
+        ]
+    },
+    execute: async (interaction, dbs, imports) => {
         const command = (interaction.commandName);
         try {
             if (command == 'ban') {
@@ -42,5 +59,5 @@ module.exports = {
                 });
             })
         };
-	}
+    }
 };
