@@ -113,3 +113,9 @@ for (const file of eventFiles) { // add events via files
 
 /* login */
 imports.client.login(process.env.token);
+
+module.exports = {
+    stop: () => {
+        imports.client.destroy()
+    }
+}
