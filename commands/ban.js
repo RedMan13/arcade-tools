@@ -1,23 +1,23 @@
 module.exports = {
-  	name: 'ban',
-  	category: 'moderators',
-  	sDesc: 'bans a person',
-  	lDesc: 'bans a person from the server, put the reason inbetween {}',
-  	args: [
+    name: 'ban',
+    category: 'moderators',
+    sDesc: 'bans a person',
+    lDesc: 'bans a person from the server, put the reason inbetween {}',
+    args: [
         {
             type: 'member',
             name: 'user',
             required: true
         },
-    		{
-    			type: 'string',
-    			lBraket: '{"',
-    			rBraket: '}',
-    			name: 'reason',
-    			required: false
-    		}
+        {
+            type: 'string',
+            lBraket: '"',
+            rBraket: '"',
+            name: 'reason',
+            required: false
+        }
     ],  
-  	execute: async (interaction, dbs, imports) => {
+    execute: async (interaction, dbs, imports) => {
         try {
             if (!message.member.permissions.has('4')) {
                 interaction.reply({ 
@@ -55,5 +55,5 @@ module.exports = {
                 });
             })
         };
-	  }
+    }
 };
