@@ -2,6 +2,7 @@ const checkmark = (bool) => bool ? '✅' : '❌'
 
 module.exports = {
     name: 'userinfo',
+    category: 'info',
     sDesc: 'gets user info',
     lDesc: 'gets info a specified user',
     args: [
