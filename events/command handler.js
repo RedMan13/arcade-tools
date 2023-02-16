@@ -47,7 +47,12 @@ module.exports = {
                 message.channel.send(message.arguments)
                 return
             }
-            commandData.execute(message)
+            try {
+                commandData.execute(message)
+            } catch (err) {
+                message.channel.send('command failed :(')
+                client.channels.cache.get(dbs.config.channels.console).send(err.stack)
+            }
         }
     },
 };
