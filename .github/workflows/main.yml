@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: make the request
-        run: |
-            apt-get install curl
-            curl -X POST "https://arcade-tools.redman13.repl.co" -d '{"auth": "${{ github.updateAuth }}"}' -H "content-type: application/json"
+        uses: dkershner6/post-api-call-action@v1
+        with:
+          url: https://arcade-tools.redman13.repl.co
+          data: "{\"auth\": \"${{ secrets.UPDATEAUTH }}\"}"
+          headers: "{}"
+          params: "{}"
