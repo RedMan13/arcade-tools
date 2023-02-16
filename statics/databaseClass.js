@@ -2,32 +2,46 @@ const fs = require('fs')
 const writeee = require('write')
 
 function write(whar, data) {
-    console.log(`writing ${JSON.stringify(data)} to ${whar}`)
-
-    if (typeof data != 'object') return
-
-    writeee.sync(
-        `../databases/${whar}`, 
-        JSON.stringify(data), 
-        { overwrite: true }
-    )
+    throw new Error('read function hasnt been initialised yet')
 }
 
 function read(whar) {
-    console.log(`reading ${whar}`)
-    try {
-        fs.accessSync(`../databases/${whar}`, fs.constants.F_OK)
-    } catch {
+    throw new Error('read function hasnt been initialised yet')
+}
+
+// sorry linux users but replit is anoying and this has to be done
+if (process.platform === 'linux') {
+    console.warn('running on replit may not be advised as it requiresyou use replit db or modify the code.')
+    write = (path, data) => imports.exec(`curl $REPLIT_DB_URL -d '${path}=${data}'`)
+    read = (path) => imports.exec(`curl $REPLIT_DB_URL/${path}`)
+} else {
+    write = (whar, data) => {
+        console.log(`writing ${JSON.stringify(data)} to ${whar}`)
+
+        if (typeof data != 'object') return
+    
         writeee.sync(
             `../databases/${whar}`, 
-            '{}', 
+            JSON.stringify(data), 
             { overwrite: true }
         )
     }
-    
-    return JSON.parse(
-        fs.readFileSync(`../databases/${whar}`)
-    )
+    read = (whar) => {
+        console.log(`reading ${whar}`)
+        try {
+            fs.accessSync(`../databases/${whar}`, fs.constants.F_OK)
+        } catch {
+            writeee.sync(
+                `../databases/${whar}`, 
+                '{}', 
+                { overwrite: true }
+            )
+        }
+        
+        return JSON.parse(
+            fs.readFileSync(`../databases/${whar}`)
+        )
+    }
 }
 
 class database {

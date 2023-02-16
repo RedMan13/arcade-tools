@@ -1,10 +1,7 @@
-
 const express = require('express')
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const path = require('path');
 const app = express();
-const { exec } = require("child_process")
 let WEBSITE_HOSTING_PORT = 8080
 
 app.use(cors());
@@ -23,7 +20,7 @@ app.post('/', (req, res) => {
         return
     }
     stop()
-    res.send(exec('git pull'))
+    res.send(imports.exec('git pull'))
     require('../index.js')
 })
 

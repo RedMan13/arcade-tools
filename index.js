@@ -2,13 +2,15 @@ console.log('starting...')
 
 require('./statics/uptimer')
 const { Client, GatewayIntentBits } = require('discord.js');
+const { exec } = require("child_process")
 require('dotenv').config();
 let process = require('process');
 const config = require('./statics/config.json')
 const syncSlash = require('@frostzzone/discord-sync-commands');
 
 globalThis.imports = {
-    process: process,
+    exec,
+    process,
     Discord: require('discord.js'),
     path: require('path'),
     fs: require('fs'),
