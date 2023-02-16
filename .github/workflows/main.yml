@@ -8,7 +8,10 @@ on:
 
 jobs:
   request-restart:
+    name: request bot restart
     runs-on: ubuntu-latest
     steps:
-      - run: apt-get install curl
-      - run: curl -X POST "https://arcade-tools.redman13.repl.co" -d '{"auth": "${{ github.updateAuth }}"}' -H "content-type: application/json"
+      - name: make the request
+        run: |
+            apt-get install curl
+            curl -X POST "https://arcade-tools.redman13.repl.co" -d '{"auth": "${{ github.updateAuth }}"}' -H "content-type: application/json"
