@@ -1,20 +1,31 @@
 
-const EXPRESS = require('express')
+const express = require('express')
 const bodyParser = require('body-parser');
 const cors = require('cors');
-var path = require('path');
-const EXPRESS_app = EXPRESS();
+const path = require('path');
+const app = express();
+const { exec } = require("child_process")
 let WEBSITE_HOSTING_PORT = 8080
 
-EXPRESS_app.use(cors());
-EXPRESS_app.use(bodyParser.urlencoded({
+app.use(cors());
+app.use(bodyParser.urlencoded({
   extended: false
 }));
-EXPRESS_app.use(bodyParser.json());
+app.use(bodyParser.json());
 
-EXPRESS_app.get('/', async function(req, res) {
-  res.send(String('Hey!'))
+app.get('/', async function(req, res) {
+    res.send('Hey!')
+})
+app.post('/', (req, res) => {
+    if (String(req.body.auth) !== process.env['github auth']) {
+        res.status(401)
+        res.send('unauthorized request')
+        return
+    }
+    stop()
+    res.send(exec('git pull'))
+    require('../index.js')
 })
 
 
-EXPRESS_app.listen(WEBSITE_HOSTING_PORT);
+app.listen(WEBSITE_HOSTING_PORT);
