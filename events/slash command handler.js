@@ -1,11 +1,11 @@
 module.exports = {
     name: 'interactionCreate',
     once: false,
-    execute: async (interaction, dbs, imports) => {
+    execute: async (interaction) => {
         const command = dbs.commands[interaction.commandName]
         if (!command.isSlash) {
             throw new Error('attempted to run a text command as a slash command. these two types are incompatible')
         }
-        require(command.path).execute(interaction, dbs, imports)
+        require(command.path).execute(interaction)
     }
 };

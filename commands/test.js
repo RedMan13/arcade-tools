@@ -39,7 +39,7 @@ module.exports = {
             required: true
         }
     ],
-    execute(message, dbs, imports) {
+    execute(message) {
         const args = message.arguments
         message.channel.send([
             args['demo1'], 

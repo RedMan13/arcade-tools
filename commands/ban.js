@@ -17,7 +17,7 @@ module.exports = {
             required: false
         }
     ],  
-    execute: async (interaction, dbs, imports) => {
+    execute: async (interaction) => {
         try {
             if (!message.member.permissions.has('4')) {
                 interaction.reply({ 

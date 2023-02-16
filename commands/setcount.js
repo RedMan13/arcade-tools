@@ -12,7 +12,7 @@ module.exports = {
             required: true
         }
     ],
-    execute: async (message, dbs) => {
+    execute: async (message) => {
         try {
             dbs.database.channel(dbs.config.channels.counting).data = {
                 current: message.arguments.count,

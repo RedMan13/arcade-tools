@@ -4,7 +4,7 @@ module.exports = {
     sDesc: '',
     lDesc: 'just run it olo',
     args: [],
-    execute: async (message, dbs) => {
+    execute: async (message) => {
         message.channel.send(`Q: why are there so few commands? 
 A: because i remade the bot and so am transfering the commands over from the old code to the modern system.
 

@@ -1,7 +1,7 @@
 module.exports = {
     name: 'messageCreate',
     once: false,
-    execute: async (message, dbs, imports) => {
+    execute: async (message) => {
         if (message.channel.id == dbs.config.channels.counting) {
             const count = dbs.database.channel(message.channel.id).data.current 
                 ? dbs.database.channel(message.channel.id).data 

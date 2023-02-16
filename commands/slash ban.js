@@ -18,7 +18,7 @@ module.exports = {
             }
         ]
     },
-    execute: async (interaction, dbs, imports) => {
+    execute: async (interaction) => {
         const command = (interaction.commandName);
         try {
             if (command == 'ban') {

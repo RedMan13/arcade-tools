@@ -1,7 +1,7 @@
 module.exports = {
     name: 'messageCreate',
     once: false,
-    execute: async (message, dbs, imports) => {
+    execute: async (message) => {
         if (message.content.startsWith(dbs.commandConfig.prefix)) {
             let command = message.content.split(' ')
             command[0] = command[0].slice(dbs.commandConfig.prefix.length, command[0].length)
@@ -46,7 +46,7 @@ module.exports = {
                 message.channel.send(message.arguments)
                 return
             }
-            commandData.execute(message, dbs, imports)
+            commandData.execute(message)
         }
     },
 };

@@ -7,7 +7,7 @@ let process = require('process');
 const config = require('./statics/config.json')
 const syncSlash = require('@frostzzone/discord-sync-commands');
 
-const imports = {
+globalThis.imports = {
     process: process,
     Discord: require('discord.js'),
     path: require('path'),
@@ -31,7 +31,7 @@ const imports = {
     })
 }
 
-let dbs = { // databases
+globalThis.dbs = { // databases
     config: config,
     database: imports.db,
     commands: {},
@@ -75,9 +75,9 @@ for (const file of eventFiles) { // add events via files
     const filePath = imports.path.join(eventsPath, file);
     const event = require(filePath);
     if (event.once) {
-        imports.client.once(event.name, async (...args) => event.execute(...args, dbs, imports))
+        imports.client.once(event.name, async (...args) => event.execute(...args))
     } else {
-        imports.client.on(event.name, async (...args) => event.execute(...args, dbs, imports))
+        imports.client.on(event.name, async (...args) => event.execute(...args))
     }
 }
 
