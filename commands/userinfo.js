@@ -13,8 +13,9 @@ module.exports = {
         }
     ],
     execute({ channel, arguments: args, member: author }) {
-        /** @type {GuildMember} */
         const user = args.user
+        
+        console.log(author, user)
         const tagNum = user.user.tag.split('#')[1]
         const infoEmbed = {
             color: user.displayHexColor,

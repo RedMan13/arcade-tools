@@ -51,7 +51,7 @@ module.exports = {
                 commandData.execute(message)
             } catch (err) {
                 message.channel.send('command failed :(')
-                client.channels.cache.get(dbs.config.channels.console).send(err.stack)
+                imports.client.channels.cache.get(dbs.config.channels.console).send(err.stack)
             }
         }
     },

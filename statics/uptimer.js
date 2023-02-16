@@ -21,7 +21,7 @@ app.post('/', (req, res) => {
     }
     stop()
     res.send(imports.exec('git pull'))
-    require('../index.js')
+    throw new Error('restarting...')
 })
 
 
