@@ -85,5 +85,5 @@ for (const file of eventFiles) { // add events via files
 imports.client.login(process.env.token);
 
 globalThis.stop = () => {
-    imports.client.destroy()
+    imports.client.destroy() 
 }
