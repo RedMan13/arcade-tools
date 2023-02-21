@@ -8,46 +8,51 @@ module.exports = async (message, args, slash) => {
     }
     message.args = message.args.replaceAll(' ', '%20').replaceAll('}', '} ')
     for (let i = 0; i < args.length; i++) {
-        let messageSplit = message.args.split('%20')
-        if (!messageSplit[i] && args[i].required) return `The argument "${args[i].name}" is required` 
-        if (args[i].type == 'string') {
-            const regexed = message.args.match(new RegExp('(?<=\\' + args[i].lBraket + ')\\S*(?=\\' + args[i].rBraket + ')', 'gm'))
+        const messageSplit = message.args.split('%20')
+        const arg = arg
+        const name = arg.name
+        if (!messageSplit[i] && arg.required) return `The argument "${name}" is required` 
+        if (arg.type == 'string') {
+            const left = arg.lBraket ? arg.lBraket : '"';
+            const right = arg.rBraket ? arg.rBraket : '"';
+            const regexed = message.args.match(new RegExp(`(?<=\\${left})\\S*(?=\\${right})`, 'gm'))
             if (!regexed) {
-                result[args[i].name] = null
-                return `The argument "${args[i].name}" has to be wraped in ${args[i].lBraket}${args[i].rBraket} and its contents must contain no whitspace charecters exept for space`
+                result[name] = null
+                return `The argument "${name}" has to be wraped in ${left}${right} and its contents must contain no whitspace charecters exept for space`
             }
-            result[args[i].name] = regexed[0].replace('%20', ' ')
+            result[name] = regexed[0].replace('%20', ' ')
             message.args = message.args.replace(regexed[0], '').replace('} ', '}')
         }
-        if (args[i].type == 'number') {
-            if (Number(messageSplit[i]) == NaN) return `The argument "${args[i].name}" has to be a number` 
-            result[args[i].name] = Math.min(Math.max(Number(messageSplit[i]), args[i].min), args[i].max)
+        if (arg.type == 'number') {
+            const number = Number(messageSplit[i])
+            if (number === NaN) return `The argument "${name}" has to be a number` 
+            result[name] = Math.min(Math.max(number, arg.min), arg.max)
         }
-        if (args[i].type == 'any') {
-            result[args[i].name] = String(messageSplit[i])
+        if (arg.type == 'any') {
+            result[name] = messageSplit[i]
         }
-        if (args[i].type == 'member') {
-            let member = String(messageSplit[i])
-            if (!member.startsWith('<@') && !member.includes('&')) return `The argument "${args[i].name}" has to be a member`
+        if (arg.type == 'member') {
+            let member = messageSplit[i]
+            if (!member.startsWith('<@') && !member.includes('&')) return `The argument "${name}" has to be a member`
             member = member.replace('<@', '').replace('>', '')
             await message.guild.members.fetch(member).then(member => {
-                result[args[i].name] = member
+                result[name] = member
             })
         }
-        if (args[i].type == 'channel') {
-            let channel = String(messageSplit[i])
-            if (!channel.startsWith('<#')) return `The argument "${args[i].name}" has to be a channel`
+        if (arg.type == 'channel') {
+            let channel = messageSplit[i]
+            if (!channel.startsWith('<#')) return `The argument "${name}" has to be a channel`
             channel = channel.replace('<#', '').replace('>', '')
             await imports.client.channels.fetch(channel).then(channel => {
-                result[args[i].name] = channel
+                result[name] = channel
             })
         }
-        if (args[i].type == 'role') {
-            let role = String(messageSplit[i])
-            if (!role.startsWith('<@&')) return `The argument "${args[i].name}" has to be a role`
+        if (arg.type == 'role') {
+            let role = messageSplit[i]
+            if (!role.startsWith('<@&')) return `The argument "${name}" has to be a role`
             role = role.replace('<@&', '').replace('>', '')
             role = message.guild.roles.cache.get(role)
-            result[args[i].name] = role
+            result[name] = role
         }
     }
     return result
