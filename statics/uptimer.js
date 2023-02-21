@@ -19,9 +19,8 @@ app.post('/', (req, res) => {
         res.send('unauthorized request')
         return
     }
-    stop()
     res.send(imports.exec('git pull'))
-    throw new Error('restarting...')
+    stop()
 })
 
 
