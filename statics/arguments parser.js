@@ -1,29 +1,38 @@
 module.exports = async (message, args, slash) => {
     const result = {}
     if (slash) {
-        for (let i = 0; i < args.length; i++) {
+        for (let argIndex = 0; argIndex < args.length; argIndex++) {
             result[args.name] = message.options.get(args.name)
         }
         return result
     }
-    message.args = message.args.replaceAll(' ', '%20').replaceAll('}', '} ')
-    for (let i = 0; i < args.length; i++) {
-        const messageSplit = message.args.split('%20')
-        const arg = args[i]
+    
+    const messageSplit = message.args.split(' ')
+    let isInString = 0
+    for (let argIndex = 0; argIndex < args.length; argIndex++) {
+        const arg = isInString 
+            ? args[isInString] 
+            : args[argIndex]
         const name = arg.name
-        const argContent = String(messageSplit[i])
+        const argContent = String(messageSplit[argIndex])
         if (!argContent && arg.required) return `The argument "${name}" is required` 
         switch (arg.type) {
         case 'string':
-            const left = arg.lBraket ? arg.lBraket : '"';
-            const right = arg.rBraket ? arg.rBraket : '"';
-            const regexed = message.args.match(new RegExp(`(?<=\\${left})\\S*(?=\\${right})`, 'gm'))
-            if (!regexed) {
-                result[name] = null
+            let valid = true
+            const left = arg.lBraket || '"';
+            const right = arg.rBraket || '"';
+            if (!argContent.startsWith(left) && !isInString) valid = false
+            if (!argContent.endsWith(right) && argIndex === args.length-1) valid = false
+            if (argContent.startsWith(left) && !isInString) isInString = argIndex
+            if (argContent.endsWith(right)) {
+                result[name] = messageSplit.slice(isInString, argIndex+1).join(' ')
+                message.args.splice(isInString, argIndex - isInString)
+                argIndex = isInString + 1
+                isInString = 0
+            }
+            if (!valid) {
                 return `The argument "${name}" has to be wraped in ${left}${right} and its contents must contain no whitspace charecters exept for space`
             }
-            result[name] = regexed[0].replace('%20', ' ')
-            message.args = message.args.replace(regexed[0], '').replace('} ', '}')
             break;
         case 'number':
             const number = Number(argContent)

@@ -7,7 +7,7 @@ module.exports = {
             command[0] = command[0].slice(dbs.commandConfig.prefix.length, command[0].length)
             let args = command.splice(1, command.length).join(' ')
             command = command[0]
-            if (command == 'help') {
+            if (command === 'help') {
                 let commands = Object.getOwnPropertyNames(dbs.commands)
                 let embed = {
                     color: 0x33cc00,
@@ -43,7 +43,7 @@ module.exports = {
             const commandData = require('.' + dbs.commands[command].path)
             message.args = args
             message.arguments = await imports.getAllArgs(message, commandData.args)
-            if (typeof message.arguments == 'string') {
+            if (typeof message.arguments === 'string') {
                 message.channel.send(message.arguments)
                 return
             }
