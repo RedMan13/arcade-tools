@@ -21,11 +21,11 @@ module.exports = {
             return;
         }
         const args = message.arguments;
-        const message = args.message;
+        const text = args.message;
         const dest = args.channel 
             ? args.channel 
             : message.channel;
-        dest.send(message);
-        message.channel.send(`successfully sent \`${message}\` to ${dest}`);
+        dest.send(text);
+        message.channel.send(`successfully sent \`${text}\` to ${dest}`);
     },
 };
