@@ -9,7 +9,7 @@ module.exports = async (message, args, slash) => {
     message.args = message.args.replaceAll(' ', '%20').replaceAll('}', '} ')
     for (let i = 0; i < args.length; i++) {
         const messageSplit = message.args.split('%20')
-        const arg = arg
+        const arg = args[i]
         const name = arg.name
         if (!messageSplit[i] && arg.required) return `The argument "${name}" is required` 
         if (arg.type == 'string') {
