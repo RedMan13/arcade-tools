@@ -16,7 +16,7 @@ module.exports = {
         }
     ],
     execute: (message) => {
-        if (!message.author.id === "860531746294726736") {
+        if (!message.author.id !== "860531746294726736") {
             message.channel.send(`you are not authorized to use this`);
             return;
         }
