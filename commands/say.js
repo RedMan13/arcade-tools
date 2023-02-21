@@ -1,6 +1,6 @@
 module.exports = {
     name: 'say',
-    category: 'your mom jokes',
+    category: 'dumb fun',
     sDesc: 'says something',
     lDesc: 'says something, can only be used by <@860531746294726736>',
     args: [

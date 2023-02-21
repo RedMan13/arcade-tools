@@ -1,6 +1,6 @@
 module.exports = {
     name: 'messageCreate',
-    category: 'your mom jokes',
+    category: 'dumb fun',
     sDesc: 'just testing',
     lDesc: 'your mom LMAO',
     args: [
