@@ -88,5 +88,5 @@ imports.client.login(process.env.token);
 
 globalThis.stop = () => {
     imports.client.destroy();
-    throw new Error('restarting...');
+    imports.exec('kill 1');
 }
