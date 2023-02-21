@@ -14,7 +14,6 @@ module.exports = {
     ],
     execute({ channel, arguments: args, member: author }) {
         const user = args.user
-        
         console.log(author, user)
         const tagNum = user.user.tag.split('#')[1]
         const infoEmbed = {
