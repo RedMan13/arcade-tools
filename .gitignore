@@ -1,8 +1,9 @@
 # no you dont get to see the token lmfao
 .env
 
-#remove the data bases since they arnt suposed to be here
-databases
+# remove the data bases since they arnt suposed to be here
+# until all the db content is uploaded and setup for use this must be synced
+#databases
 
 # npm be like
 package-lock.json
