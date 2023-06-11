@@ -15,7 +15,7 @@ module.exports = {
     execute: async (message) => {
         try {
             if (!message.member.permissions.has('2000', true)) {
-                message.send('you need the manage messages permision to do this');
+                message.channel.send('you need the manage messages permision to do this');
                 return
             }
             dbs.database.channel(dbs.config.channels.counting).data = {
