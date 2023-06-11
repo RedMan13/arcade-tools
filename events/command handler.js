@@ -40,6 +40,7 @@ module.exports = {
                 message.channel.send({ embeds: [embed] })
                 return
             }
+            if (!dbs.commands[command]) return
             const commandData = require('.' + dbs.commands[command].path)
             message.args = args
             message.arguments = await imports.getAllArgs(message, commandData.args)
