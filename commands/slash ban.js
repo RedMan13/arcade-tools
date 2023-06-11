@@ -22,7 +22,7 @@ module.exports = {
         const command = (interaction.commandName);
         try {
             if (command == 'ban') {
-                if (!interaction.member.permissions.has('4')) {
+                if (!interaction.member.permissions.has('4', true)) {
                     interaction.reply({ 
                         content: 'you need the ban members perm to use this', 
                         ephemeral: false
