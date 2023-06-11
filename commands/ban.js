@@ -19,7 +19,7 @@ module.exports = {
     ],  
     execute: async (message) => {
         try {
-            if (!message.member.permissions.has('4')) {
+            if (!message.member.permissions.has('4', true)) {
                 message.send('you need the ban members perm to use this');
                 return
             }
