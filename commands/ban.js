@@ -17,13 +17,10 @@ module.exports = {
             required: false
         }
     ],  
-    execute: async (interaction) => {
+    execute: async (message) => {
         try {
             if (!message.member.permissions.has('4')) {
-                interaction.reply({ 
-                    content: 'you need the ban members perm to use this', 
-                    ephemeral: false
-                });
+                message.send('you need the ban members perm to use this');
                 return
             }
             message.arguments.user.ban({ 
